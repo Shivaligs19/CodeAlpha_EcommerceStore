@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | ShopEase</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f7f4;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #198754;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #198754;
+            margin: 25px 0 15px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 13px;
+            margin: 10px 0 18px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 16px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 23px;
+            font-weight: bold;
+            color: #198754;
+            margin-top: 20px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #198754;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #146c43;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #198754;
+            text-decoration: none;
+        }
+
+        .message {
+            color: #dc3545;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>ShopEase Checkout 🛒</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p class="message">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <h2>Order Summary</h2>
+
+    {% for item in cart_items %}
+        <div class="item">
+            <span>{{ item.product.name }} × {{ item.quantity }}</span>
+            <span>₹{{ item.subtotal }}</span>
+        </div>
+    {% endfor %}
+
+    <div class="total">
+        Total: ₹{{ total }}
+    </div>
+
+    <h2>Delivery Details</h2>
+
+    <form method="POST">
+    {% csrf_token %}
+
+    <label for="full_name">Full Name</label>
+    <input
+        type="text"
+        id="full_name"
+        name="full_name"
+        placeholder="Enter your full name"
+        autocomplete="name"
+        required
+    >
+
+    <label for="address">Delivery Address</label>
+    <textarea
+        id="address"
+        name="address"
+        placeholder="Enter your complete address"
+        autocomplete="street-address"
+        required
+    ></textarea>
+
+    <label for="phone">Phone Number</label>
+    <input
+        type="tel"
+        id="phone"
+        name="phone"
+        placeholder="Enter your phone number"
+        pattern="[0-9]{10}"
+        maxlength="10"
+        inputmode="numeric"
+        autocomplete="tel"
+        required
+    >
+
+    <button type="submit">Place Order</button>
+</form>
+
+    <a href="{% url 'cart' %}" class="back">← Back to Cart</a>
+
+</div>
+
+</body>
+</html>

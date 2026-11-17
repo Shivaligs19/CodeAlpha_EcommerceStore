@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed | ShopEase</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f7f4;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .success-box {
+            background: white;
+            max-width: 550px;
+            width: 100%;
+            padding: 45px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .icon {
+            font-size: 70px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #198754;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #555;
+            font-size: 17px;
+            margin: 12px 0;
+        }
+
+        .order-details {
+            background: #f3f7f4;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .order-details p {
+            margin: 10px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #198754;
+            color: white;
+            padding: 14px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #146c43;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="success-box">
+
+        <div class="icon">✅</div>
+
+        <h1>Order Placed Successfully!</h1>
+
+        <p>Thank you for shopping with ShopEase.</p>
+        <p>Your order has been received and is being processed.</p>
+
+        <div class="order-details">
+
+            <p><strong>Order ID:</strong> #{{ order.id }}</p>
+
+            <p><strong>Customer:</strong> {{ order.full_name }}</p>
+
+            <p><strong>Phone:</strong> {{ order.phone }}</p>
+
+            <p><strong>Delivery Address:</strong> {{ order.address }}</p>
+
+            <p><strong>Total Amount:</strong> ₹{{ order.total_amount }}</p>
+
+            <p><strong>Order Status:</strong> {{ order.status }}</p>
+
+        </div>
+
+        <a href="/" class="btn">Continue Shopping</a>
+
+    </div>
+
+</body>
+</html>

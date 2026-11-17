@@ -1,0 +1,124 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | ShopEase</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7f5;
+            padding: 30px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #168447;
+            margin-bottom: 25px;
+        }
+
+        .order {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 22px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .order h3 {
+            margin-bottom: 12px;
+            color: #168447;
+        }
+
+        .order p {
+            margin: 8px 0;
+        }
+
+        .empty {
+            text-align: center;
+            margin: 50px auto;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            color: #168447;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .status-badge {
+    padding: 5px 12px;
+    border-radius: 15px;
+    background-color: #fff3cd;
+    color: #856404;
+    font-weight: bold;
+    font-size: 13px;
+}
+    </style>
+</head>
+
+<body>
+
+<h1>My Orders 📦</h1>
+
+{% if orders %}
+
+    {% for order in orders %}
+
+        <div class="order">
+
+            <h3>Order #{{ order.id }}</h3>
+
+            <p><strong>Name:</strong> {{ order.full_name }}</p>
+
+            <p><strong>Delivery Address:</strong> {{ order.address }}</p>
+
+            <p><strong>Phone:</strong> {{ order.phone }}</p>
+
+            <p><strong>Total Amount:</strong> ₹{{ order.total_amount }}</p>
+            <p>
+    <strong>Order Status:</strong>
+    <span class="status-badge">{{ order.status }}</span>
+</p>
+            <h4>Products Ordered:</h4>
+
+{% for item in order.items.all %}
+    <p>
+        {{ item.product.name }} —
+        Quantity: {{ item.quantity }} —
+        Price: ₹{{ item.price }}
+    </p>
+{% endfor %}
+
+            <p><strong>Order Date:</strong> {{ order.created_at }}</p>
+
+        </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <div class="empty">
+        <h2>No orders yet!</h2>
+        <p>Your previous orders will appear here.</p>
+    </div>
+
+{% endif %}
+
+<center>
+    <a href="{% url 'home' %}">← Continue Shopping</a>
+</center>
+
+</body>
+</html>
+```
